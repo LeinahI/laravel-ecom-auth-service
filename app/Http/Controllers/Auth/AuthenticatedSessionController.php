@@ -17,9 +17,24 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
+        $email = $request['email'];
+        $password = $request['password'];
 
-        return response()->noContent();
+        $params = [
+            'grant_type' => 'password',
+            'client_id' => config('auth.password_client_id'), /* config('auth.password_client_id) */
+            'client_secret' => config('auth.password_client_secret'),    /* config('auth.password_client_secret) */
+            'username' => $email,
+            'password' => $password,
+            'scope' => '*',
+        ];
+
+        $request = request()->create('oauth/token', 'POST', $params);
+        $response = app()->handle($request);
+        $response = json_decode($response->getContent(), true);
+
+        // return response()->json($response);
     }
 
     /**
