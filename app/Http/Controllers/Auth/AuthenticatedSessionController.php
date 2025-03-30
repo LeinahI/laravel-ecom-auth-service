@@ -13,7 +13,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): Response
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
 
@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         $response = app()->handle($request);
         $response = json_decode($response->getContent(), true);
 
-        // return response()->json($response);
+        return response()->json($response);
     }
 
     /**
