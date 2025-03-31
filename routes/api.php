@@ -11,6 +11,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 require __DIR__.'/auth.php'; /* All endpoints are '/rpi' as RESTful Api */
 
 Route::middleware('auth:api')->group(function (){
-    Route::post('/auth/token', UserController::class)->name('auth.token'); /*  */
+    Route::post('/auth/token', UserController::class)->name('auth.token');
 
 });
